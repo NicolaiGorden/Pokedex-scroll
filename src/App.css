@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  /* background-color: black; */
   display: flex;
   justify-content: center;
 }
@@ -8,10 +8,17 @@ body {
   background-color: aqua;
   width: 640px;
   height: 360px;
+  display: flex;
 }
 
 .Img-Container {
   background-color: blue;
   width: 40%;
+  height: 100%;
+}
+
+.List-Container {
+  background-color: red;
+  width: 60%;
   height: 100%;
 }
