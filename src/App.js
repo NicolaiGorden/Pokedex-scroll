@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect, act } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCreative, Virtual } from 'swiper/modules';
 import SwiperCore from 'swiper'
@@ -56,8 +56,13 @@ function App() {
     <div className="App">
       <div className="Screen">
 
-        <div className="Img-Container">
-          <img src={imgURL}></img>
+        <div className="Img-Search-Container">
+          <div className='Border'>
+            <div className='Img-Container'>
+              <img className='Sprite' src={imgURL}></img>
+            </div>
+          </div>
+          <input className="Searchbar" type="text" placeholder="Search.."></input>
         </div>
 
         <div className="List-Container">
