@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(35, 35, 35);
+  background-color: rgb(0, 35, 35);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +20,7 @@ body {
 }
 
 .List-Container {
-  background-color: red;
+  background-color: rgb(0, 128, 128);
   width: 60%;
   height: 360px;
 }
@@ -37,7 +37,7 @@ body {
 }
 
 .swiper-slide {
-  background-color: rgb(248, 248, 192) ;
+  background-color: rgb(184, 176, 184) ;
   height: 100%;
   width: 90% !important;
   border-radius: 25px 5px 5px 25px;
@@ -47,11 +47,34 @@ body {
   font-weight: 400;
   font-style: normal;
   font-size: 2rem;
+  margin-left: 10px;
 }
 
-.swiper-slide-active {
+.active {
+  background-color: rgb(248, 248, 192);
   margin-top: 5px;
   margin-bottom: 5px !important;
+}
+
+.first-from-active {
+  background-color: rgb(232, 224, 192);
+}
+
+.second-from-active {
+  background-color: rgb(208, 200, 184);
+}
+
+.third-from-active {
+  background-color: rgb(184, 176, 184);
+}
+
+.fourth-from-active {
+  background-color: rgb(184, 176, 184);
+}
+
+.hidden {
+  visibility: hidden;
+  transition: 1s;
 }
 
 svg {
