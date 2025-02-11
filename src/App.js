@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCreative, Virtual } from 'swiper/modules';
 import SwiperCore from 'swiper'
+import { TbPokeball } from "react-icons/tb"
 import 'swiper/css'
 
 SwiperCore.use([EffectCreative, Virtual])
@@ -34,7 +35,7 @@ function App() {
 
         <div className="List-Container">
           <Swiper
-            spaceBetween={-5}
+            spaceBetween={0}
             slidesPerView={7}
             onSlideChange={index => { console.log(allSpecies[index.snapIndex])}}
             onSwiper={(swiper) => console.log(swiper)}
@@ -56,7 +57,14 @@ function App() {
               limitProgress: 3,
             }}
           >
-            {allSpecies.map((e) => <SwiperSlide>{e}</SwiperSlide>)}
+            {allSpecies.map((e, i) => {
+              return (
+              <SwiperSlide> 
+                <a className="ball"><TbPokeball size= {40}/></a>
+                <a className="slide-inner">{String(i+1).padStart(4, '0')}</a>
+                <a className="slide-inner">{e}</a>
+              </SwiperSlide>)
+              })}
           </Swiper>
         </div>
       </div>

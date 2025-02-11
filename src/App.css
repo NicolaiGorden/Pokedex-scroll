@@ -41,9 +41,25 @@ body {
   height: 100%;
   width: 90% !important;
   border-radius: 25px 5px 5px 25px;
+  display: flex;
+  align-content: center;
+  font-family: "Staatliches", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2rem;
 }
 
 .swiper-slide-active {
   margin-top: 5px;
   margin-bottom: 5px !important;
+}
+
+svg {
+  vertical-align: bottom;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.slide-inner {
+  padding: 10px;
 }
