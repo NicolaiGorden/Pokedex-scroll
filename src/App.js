@@ -1,6 +1,11 @@
 import './App.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+// import { EffectCoverflow } from 'swiper/modules';
+import { EffectCreative } from 'swiper/modules';
+import SwiperCore from 'swiper'
 import 'swiper/css'
+
+SwiperCore.use([EffectCreative])
 
 function App() {
   return (
@@ -12,12 +17,35 @@ function App() {
 
         <div className="List-Container">
           <Swiper
-            spaceBetween={2}
+            spaceBetween={-5}
             slidesPerView={7}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
+            grabCursor= {true}
+            centeredSlides= {true}
             direction='vertical'
-            mousewheel= {true}
+            initialSlide={0}
+            speed= {600}
+            preventClicks= {true}
+            // effect="coverflow"
+            // coverflowEffect= {{
+            //   rotate: 0,
+            //   stretch: 0,
+            //   depth: 350,
+            //   modifier: 1,
+            //   slideShadows: false
+            // }}
+
+            effect="creative"
+            creativeEffect= {{
+              next: {
+                translate: [10, "100%", 0],
+              },
+              prev: {
+                translate: [10, "-100%", 0],
+              },
+              limitProgress: 3,
+            }}
           >
             <SwiperSlide>Slide 1</SwiperSlide>
             <SwiperSlide>Slide 2</SwiperSlide>
