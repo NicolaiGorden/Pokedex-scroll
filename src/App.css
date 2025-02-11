@@ -1,5 +1,5 @@
 body {
-  /* background-color: black; */
+  background-color: rgb(35, 35, 35);
   display: flex;
   justify-content: center;
 }
@@ -20,5 +20,17 @@ body {
 .List-Container {
   background-color: red;
   width: 60%;
+  height: 360px;
+}
+
+.swiper {
+  width: 90%;
   height: 100%;
+}
+
+.swiper-slide {
+  background-color: yellow ;
+  height: 100%;
+  width: 80%;
+  border-radius: 25px 5px 5px 25px
 }
