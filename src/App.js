@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCreative, Virtual } from 'swiper/modules';
 import SwiperCore from 'swiper'
 import { TbPokeball } from "react-icons/tb"
+import { IoSearch } from "react-icons/io5"
 import 'swiper/css'
 
 SwiperCore.use([EffectCreative, Virtual])
@@ -11,8 +12,14 @@ SwiperCore.use([EffectCreative, Virtual])
 function App() {
 
   const [allSpecies, setAllSpecies] = useState([])
-  const [activeMon, setActiveMon] = useState(1)
   const [imgURL, setImgUrl] = useState([])
+
+  const [query, setQuery] = useState('')
+  const [queryResults, setQueryResults] =useState([])
+
+  const [activeIndexRef, setActiveIndexRef] = useState(1)
+  const [activeMonNum, setActiveMonNum] = useState(1)
+
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon-species/?limit=20000')
@@ -23,34 +30,53 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${activeMon}`)
+    if (document.querySelectorAll('.active')[0]?.id) {
+      setActiveMonNum(document.querySelectorAll('.active')[0].id)
+    }
+  }, [activeIndexRef, query])
+
+  useEffect(() => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${activeMonNum}`)
       .then(res => res.json())
       .then((data) => {
         setImgUrl(data.sprites.front_default)
-      })
-  }, [activeMon])
+    })
+  }, [activeMonNum])
 
   function populatePokemonList(arr) {
-    let speciesArray = arr.map(e => (e.name))
+    let speciesArray = arr.map((e, i) => {
+      return {
+        name: e.name,
+        dexNum: i+1,
+      }
+    })
     setAllSpecies(s => [...speciesArray])
-    console.log(allSpecies)
+    setQueryResults(s => [...speciesArray])
+  }
+
+  function handleQuery(e) {
+    e.preventDefault();
+    setQuery(q => e.target.value)
+    let arr = allSpecies.filter((obj) => obj.name.toUpperCase().includes(e.target.value.toUpperCase()))
+    setQueryResults(arr)
   }
 
   function swiperStylingHandler(i) {
-    if (i + 1 === activeMon) {
+    if (i + 1 === activeIndexRef) {
       return 'active'
-    } else if (i === activeMon || i + 2 === activeMon) {
+    } else if (i === activeIndexRef || i + 2 === activeIndexRef) {
       return 'first-from-active'
-    } else if (i - 1 === activeMon  || i + 3 === activeMon){
+    } else if (i - 1 === activeIndexRef  || i + 3 === activeIndexRef){
       return 'second-from-active'
-    } else if (i - 2 === activeMon  || i + 4 === activeMon){
+    } else if (i - 2 === activeIndexRef  || i + 4 === activeIndexRef){
       return 'third-from-active'
-    } else if (i - 3 === activeMon  || i + 5 === activeMon){
+    } else if (i - 3 === activeIndexRef  || i + 5 === activeIndexRef){
       return 'fourth-from-active'
     } else {
       return 'hidden'
     }
   }
+  
 
   return (
     <div className="App">
@@ -62,17 +88,20 @@ function App() {
               <img className='Sprite' src={imgURL}></img>
             </div>
           </div>
-          <input className="Searchbar" type="text" placeholder="Search.."></input>
+          <div className="Searchbar-Wrapper">
+            <IoSearch size= {30} className='Search-svg'/>
+            <input onChange={handleQuery} value={query} className="Searchbar" type="text"></input>
+          </div>
         </div>
 
         <div className="List-Container">
           <Swiper
-            spaceBetween={0}
+            spaceBetween={2}
             slidesPerView={7}
-            onSlideChange={index => { 
-              setActiveMon(index.activeIndex + 1)
+            onSlideChange={index => {
+              setActiveIndexRef(index.activeIndex + 1)
             }}
-            onSwiper={(swiper) => console.log(swiper)}
+            onSwiper={(swiper) => console.log('')}
             grabCursor= {true}
             centeredSlides= {true}
             direction='vertical'
@@ -91,13 +120,12 @@ function App() {
               limitProgress: 3,
             }}
           >
-            {allSpecies.map((e, i) => {
+            {queryResults.map((e, i) => {
               return (
-              // <SwiperSlide className={ i + 1 === activeMon ? 'active' : ''}> 
-              <SwiperSlide className={swiperStylingHandler(i)}> 
-                <a className="ball"><TbPokeball size= {40}/></a>
-                <a className="slide-inner">{String(i+1).padStart(4, '0')}</a>
-                <a className="slide-inner">{e}</a>
+              <SwiperSlide className={swiperStylingHandler(i)} id={`${e.dexNum}`}> 
+                <a className="ball"><TbPokeball className="ball-svg" size= {40}/></a>
+                <a className="slide-inner">{String(e.dexNum).padStart(4, '0')}</a>
+                <a className="slide-inner">{e.name}</a>
               </SwiperSlide>)
               })}
           </Swiper>
