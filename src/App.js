@@ -12,7 +12,6 @@ SwiperCore.use([EffectCreative, Virtual])
 function App() {
 
   const [allSpecies, setAllSpecies] = useState([])
-  const [imgURL, setImgUrl] = useState([])
 
   const [query, setQuery] = useState('')
   const [queryResults, setQueryResults] =useState([])
@@ -20,6 +19,8 @@ function App() {
   const [activeIndexRef, setActiveIndexRef] = useState(1)
   const [activeMonNum, setActiveMonNum] = useState(1)
 
+  const [activeSpeciesData, setActiveSpeciesData] = useState({})
+  const [activeMonData, setActiveMonData] = useState({})
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon-species/?limit=20000')
@@ -31,16 +32,37 @@ function App() {
 
   useEffect(() => {
     if (document.querySelectorAll('.active')[0]?.id) {
-      setActiveMonNum(document.querySelectorAll('.active')[0].id)
+      setActiveMonNum(p => parseInt(document.querySelectorAll('.active')[0].id))
     }
   }, [activeIndexRef, query])
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${activeMonNum}`)
-      .then(res => res.json())
-      .then((data) => {
-        setImgUrl(data.sprites.front_default)
-    })
+    // fetch(`https://pokeapi.co/api/v2/pokemon/${activeMonNum}`)
+    //   .then(res => res.json())
+    //   .then((data) => {
+    //     const pkmn = {
+    //       imgUrl: data.sprites.front_default     
+    //     }
+    //     setActiveMonData(pkmn)
+    // })
+    const fetchData = async () => {
+      try {
+        const [speciesDataFetch, monDataFetch] = await Promise.all([
+          fetch(`https://pokeapi.co/api/v2/pokemon-species/${activeMonNum}`),
+          fetch(`https://pokeapi.co/api/v2/pokemon/${activeMonNum}`)
+        ])
+
+        const speciesData = await speciesDataFetch.json()
+        const monData = await monDataFetch.json()
+
+        setActiveSpeciesData(s => speciesData)
+        setActiveMonData(m => monData)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    fetchData()
   }, [activeMonNum])
 
   function populatePokemonList(arr) {
@@ -62,6 +84,7 @@ function App() {
   }
 
   function swiperStylingHandler(i) {
+    //could probably be a switch case
     if (i + 1 === activeIndexRef) {
       return 'active'
     } else if (i === activeIndexRef || i + 2 === activeIndexRef) {
@@ -85,7 +108,7 @@ function App() {
         <div className="Img-Search-Container">
           <div className='Border'>
             <div className='Img-Container'>
-              <img className='Sprite' src={imgURL}></img>
+              <img className='Sprite' alt={allSpecies[parseInt(document.querySelectorAll('.active')[0]?.id)-1]?.name} src={activeMonData.sprites?.front_default ? activeMonData.sprites.front_default : null}></img>
             </div>
           </div>
           <div className="Searchbar-Wrapper">
@@ -122,10 +145,10 @@ function App() {
           >
             {queryResults.map((e, i) => {
               return (
-              <SwiperSlide className={swiperStylingHandler(i)} id={`${e.dexNum}`}> 
-                <a className="ball"><TbPokeball className="ball-svg" size= {40}/></a>
-                <a className="slide-inner">{String(e.dexNum).padStart(4, '0')}</a>
-                <a className="slide-inner">{e.name}</a>
+              <SwiperSlide key={i} className={swiperStylingHandler(i)} id={`${e.dexNum}`}> 
+                <i className="ball"><TbPokeball className="ball-svg" size= {40}/></i>
+                <i className="slide-inner">{String(e.dexNum).padStart(4, '0')}</i>
+                <i className="slide-inner">{e.name}</i>
               </SwiperSlide>)
               })}
           </Swiper>
