@@ -7,6 +7,8 @@ import { TbPokeball } from "react-icons/tb"
 import { IoSearch } from "react-icons/io5"
 import 'swiper/css'
 
+import GeneralInfo from './components/general_info';
+
 SwiperCore.use([EffectCreative, Virtual])
 
 function App() {
@@ -158,21 +160,9 @@ function App() {
         </div>
         {/* split into components for sure, just gotta pass data from current species and mon objects as props*/}
 
-        {activeSpeciesData.flavor_text_entries ? <div className="info-container">
-          <div className="general-info">
-
-          </div>
-          <div className="flavor-text-container">
-              {/* conditionally render tabs here */}
-              <div className='flavor-text-border'>
-                <div className='flavor-text-border-flourish'/>
-                <div className='flavor-text'>
-                  {activeSpeciesData.flavor_text_entries[0].flavor_text}
-                </div>
-                <div className='flavor-text-border-flourish'/>
-              </div>
-          </div>
-        </div> : ''}
+        {activeSpeciesData.flavor_text_entries ? 
+          <GeneralInfo speciesData= {activeSpeciesData}/> : 
+        ''}
       </div>
     </div>
   );
