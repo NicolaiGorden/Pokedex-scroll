@@ -37,14 +37,6 @@ function App() {
   }, [activeIndexRef, query])
 
   useEffect(() => {
-    // fetch(`https://pokeapi.co/api/v2/pokemon/${activeMonNum}`)
-    //   .then(res => res.json())
-    //   .then((data) => {
-    //     const pkmn = {
-    //       imgUrl: data.sprites.front_default     
-    //     }
-    //     setActiveMonData(pkmn)
-    // })
     const fetchData = async () => {
       try {
         const [speciesDataFetch, monDataFetch] = await Promise.all([
@@ -63,7 +55,12 @@ function App() {
     }
 
     fetchData()
+
   }, [activeMonNum])
+
+  useEffect(() => {
+    console.log(activeSpeciesData.varieties?.length > 1 ? "multiform" : "one form")
+  }, [activeSpeciesData])
 
   function populatePokemonList(arr) {
     let speciesArray = arr.map((e, i) => {
@@ -103,7 +100,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="Screen">
+      <div className="Top-Screen">
 
         <div className="Img-Search-Container">
           <div className='Border'>
@@ -153,6 +150,29 @@ function App() {
               })}
           </Swiper>
         </div>
+      </div>
+
+      <div className='Bottom-Screen'>
+        <div className='navbar'>
+          this is the frickin navbar mate
+        </div>
+        {/* split into components for sure, just gotta pass data from current species and mon objects as props*/}
+
+        {activeSpeciesData.flavor_text_entries ? <div className="info-container">
+          <div className="general-info">
+
+          </div>
+          <div className="flavor-text-container">
+              {/* conditionally render tabs here */}
+              <div className='flavor-text-border'>
+                <div className='flavor-text-border-flourish'/>
+                <div className='flavor-text'>
+                  {activeSpeciesData.flavor_text_entries[0].flavor_text}
+                </div>
+                <div className='flavor-text-border-flourish'/>
+              </div>
+          </div>
+        </div> : ''}
       </div>
     </div>
   );

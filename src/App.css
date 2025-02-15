@@ -5,18 +5,19 @@ body {
   align-items: center;
 }
 
-.Screen {
+.Top-Screen {
   background-color: aqua;
   width: 780px;
-  height: 360px;
+  height: 585px;
   display: flex;
   margin-top: 20px;
+  align-items: center;
 }
 
 .Img-Search-Container {
   background-color: rgb(0, 128, 128);
   width: 40%;
-  height: 100%;
+  height: 360px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -161,4 +162,68 @@ body {
 .slide-inner-name {
   padding: 10px;
   font-style: normal
+}
+
+.Bottom-Screen {
+  background-color: aqua;
+  width: 780px;
+  height: 585px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10%;
+  width: 100%;
+  background-color: white;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  background-color: blueviolet;
+  width: 100%;
+  height: 90%;
+}
+
+.general-info {
+  width: 100%;
+  height: 60%;
+  background-color: aquamarine;
+}
+
+.flavor-text-container {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flavor-text-border {
+  width: 98%;
+  height: 90%;
+  background-color: rgb(132, 173, 247);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.flavor-text-border-flourish {
+  height: 90%;
+  width: 30px;
+  border-radius: 13px;
+  background-color: rgb(107, 148, 206);
+}
+
+.flavor-text {
+  height: 90%;
+  width: 80%;
+  border-radius: 5px;
+  background-color: white;
 }
