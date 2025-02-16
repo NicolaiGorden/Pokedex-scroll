@@ -117,7 +117,7 @@ body {
   font-family: "Staatliches", serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 2rem;
+  font-size: 30px;
   margin-left: 10px;
 }
 
@@ -205,9 +205,11 @@ body {
 .flavor-text-container {
   width: 100%;
   height: 40%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  justify-items: center;
   align-items: center;
-  justify-content: center;
 }
 
 .flavor-text-border {
@@ -218,6 +220,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  z-index: 1;
+  grid-row-start: 1;
+  grid-column-start: 1;
 }
 
 .flavor-text-border-flourish {
@@ -234,8 +239,83 @@ body {
   background-color: white;
   font-family: "Source Sans 3", serif;
   font-weight: 600;
-  font-size: 30px;
+  font-size: 22px;
   text-shadow: 2px 2px 3px rgb(198, 198, 198);
   box-sizing: border-box;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.flavor-tooltip {
+  font-size: 15px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: -10px;
+}
+
+.flavor-gen-nav {
+  width: 80%;
+  height: 30%;
+  transform: translateY(-88px);
+  z-index: 0;
+  grid-row-start: 1;
+  grid-column-start: 1;
+
+  display: grid;
+  /* grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10%; */
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 100%;
+}
+
+.flavor-gen-tab {
+  background-color: rgb(132, 173, 247);
+  color: white;
+  font-family: "Staatliches", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  text-align: center;
+  width: 56px;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgba(0, 0, 0, 0.302);
+}
+
+.flavor-gen-tab:hover {
+  transform: translateY(-15px);
+  transition: .2s;
+}
+
+.flavor-gen-tab:active {
+  transform: translateY(-10px);
+  transition: 0s;
+}
+
+.flavor-gen-tab-active {
+  background-color: rgb(132, 173, 247);
+  color: white;
+  font-family: "Staatliches", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  text-align: center;
+  width: 56px;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgba(0, 0, 0, 0.302);
+  transform: translateY(-15px);
+  z-index: 11 !important;
+}
+
+.flavor-gen-tab-inactive {
+  background-color: rgb(148, 148, 148);
+  color: white;
+  font-family: "Staatliches", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  text-align: center;
+  width: 56px;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgba(0, 0, 0, 0.302);
+  transform: translateY(10px);
 }
