@@ -5,6 +5,7 @@ import { EffectCreative, Virtual } from 'swiper/modules';
 import SwiperCore from 'swiper'
 import { TbPokeball } from "react-icons/tb"
 import { IoSearch } from "react-icons/io5"
+import { HiSparkles } from "react-icons/hi";
 import 'swiper/css'
 
 import GeneralInfo from './components/general_info';
@@ -23,6 +24,8 @@ function App() {
 
   const [activeSpeciesData, setActiveSpeciesData] = useState({})
   const [activeMonData, setActiveMonData] = useState({})
+
+  const [shinyToggle, setShinyToggle] = useState('front_default')
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon-species/?limit=20000')
@@ -57,7 +60,7 @@ function App() {
     }
 
     fetchData()
-
+    setShinyToggle('front_default')
   }, [activeMonNum])
 
   useEffect(() => {
@@ -107,7 +110,8 @@ function App() {
         <div className="Img-Search-Container">
           <div className='Border'>
             <div className='Img-Container'>
-              <img className='Sprite' alt={allSpecies[parseInt(document.querySelectorAll('.active')[0]?.id)-1]?.name} src={activeMonData.sprites?.front_default ? activeMonData.sprites.front_default : null}></img>
+              <div onClick={() => shinyToggle === 'front_default' ? setShinyToggle('front_shiny') : setShinyToggle('front_default')} className={shinyToggle === 'front_default' ? 'Shiny-Button' : 'Shiny-Button Shiny-True'}><HiSparkles /></div>
+              <img className='Sprite' alt={allSpecies[parseInt(document.querySelectorAll('.active')[0]?.id)-1]?.name} src={activeMonData?.sprites?.[shinyToggle] ? activeMonData.sprites[shinyToggle] : null}></img>
             </div>
           </div>
           <div className="Searchbar-Wrapper">

@@ -89,9 +89,9 @@ function GeneralInfo({speciesData}) {
     function handleActiveTabs(tab) {
         if (flavorText?.genI) {
             if (!flavorText[tab][0]) {
-                return 'flavor-gen-tab-inactive'
+                return 'flavor-gen-tab no-entry'
             } else if (tab === currentTab) {
-                return 'flavor-gen-tab-active'
+                return 'flavor-gen-tab tab-selected'
             } else {
                 return 'flavor-gen-tab'
             }
