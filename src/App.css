@@ -230,7 +230,37 @@ body {
   width: 30px;
   border-radius: 13px;
   background-color: rgb(107, 148, 206);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-size: 50px;
+  color: white
 }
+
+.flavor-text-border-flourish-button {
+  height: 85%;
+  width: 30px;
+  border-radius: 13px;
+  background-color: rgb(107, 148, 206);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-size: 50px;
+  color: white
+}
+
+.flavor-text-border-flourish-button:hover {
+  height: 90%;
+  transition: .2s;
+  background-color: rgb(72, 108, 158);
+}
+
+.flavor-text-border-flourish-button:active {
+  height: 87%;
+  transition: 0s;
+  background-color: rgb(107, 148, 206);
+}
+
 
 .flavor-text {
   height: 85%;
@@ -269,7 +299,7 @@ body {
 }
 
 .flavor-gen-tab {
-  background-color: rgb(132, 173, 247);
+  background-color: rgb(91, 123, 184);
   color: white;
   font-family: "Staatliches", serif;
   font-weight: 400;
@@ -282,12 +312,12 @@ body {
 }
 
 .flavor-gen-tab:hover {
-  transform: translateY(-15px);
+  transform: translateY(-10px);
   transition: .2s;
 }
 
 .flavor-gen-tab:active {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   transition: 0s;
 }
 

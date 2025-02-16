@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 
 function GeneralInfo({speciesData}) {    
 
     const [flavorText, setFlavorText] = useState({})
     const [currentTab, setCurrentTab] = useState('genI')
+    const [currentPage, setCurrentPage] = useState(0)
 
     useEffect(() => {
         let flavors = {
@@ -77,8 +79,12 @@ function GeneralInfo({speciesData}) {
 
         setFlavorText(flavors)
         setCurrentTab(Object.keys(flavors).find((gen) => flavors[gen][0]))
-        console.log(flavors)
+        setCurrentPage(0)
     }, [speciesData])
+
+    useEffect(() => {
+        setCurrentPage(0)
+    }, [currentTab])
 
     function handleActiveTabs(tab) {
         if (flavorText?.genI) {
@@ -116,15 +122,21 @@ function GeneralInfo({speciesData}) {
                 <div onClick={() => handleTabClick('genIX')} className={handleActiveTabs('genIX')} style= {{zIndex:'2'}}>IX</div>
             </div>
             <div className='flavor-text-border'>
-              <div className='flavor-text-border-flourish'/>
-              <div className='flavor-text'>
-                <p className='flavor-tooltip'>Source game: {flavorText.genI ? flavorText[currentTab][0].version.replace('-', ' ').split(" ").map((e) => {
-                    return e[0].toUpperCase() + e.substring(1)
-                }).join(" ") : ''}</p>
-                {/* WARNING: the following regex makes line breaks that are meant to be hyphens into spaces. */}
-                {flavorText.genI ? flavorText[currentTab][0].text.replace(/[\f\n]/g, ' ') : ''}
-              </div>
-              <div className='flavor-text-border-flourish'/>
+            {currentPage === 0 ? 
+                <div className='flavor-text-border-flourish'></div> :
+                <div onClick={() => setCurrentPage(currentPage-1)} className='flavor-text-border-flourish-button'><IoMdArrowDropleft/></div>
+            }
+                <div className='flavor-text'>
+                    <p className='flavor-tooltip'>Source game: {flavorText.genI ? flavorText[currentTab][currentPage].version.replace('-', ' ').split(" ").map((e) => {
+                        return e[0].toUpperCase() + e.substring(1)
+                    }).join(" ") : ''}</p>
+                    {/* WARNING: the following regex makes line breaks that are meant to be hyphens into spaces. */}
+                    {flavorText.genI ? flavorText[currentTab][currentPage].text.replace(/[\f\n]/g, ' ') : ''}
+                </div>
+            {flavorText[currentTab]?.length === currentPage + 1 ? 
+                <div className='flavor-text-border-flourish'></div> :
+                <div onClick={() => setCurrentPage(currentPage+1)} className='flavor-text-border-flourish-button'><IoMdArrowDropright/></div>
+            }
             </div>
         </div>
       </div>
